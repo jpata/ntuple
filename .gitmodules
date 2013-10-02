@@ -1,0 +1,3 @@
+[submodule "CMSSW/src/SingleTopPolarization/stpol_testcode1"]
+	path = CMSSW/src/SingleTopPolarization/stpol_testcode1
+	url = git@github.com:jpata/stpol_testcode1.git
