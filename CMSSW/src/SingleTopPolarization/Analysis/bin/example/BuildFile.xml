@@ -1,0 +1,10 @@
+<use name="root"/>
+<use name="boost"/>
+<use name="FWCore/FWLite"/>
+<use name="DataFormats/FWLite"/>
+<use name="PhysicsTools/FWLite"/>
+<use name="PhysicsTools/Utilities"/>
+
+<bin name="eventloop_example" file="eventloop_example.cc">
+    <Flags CXXFLAGS="-O3 -I$(STPOL_DIR)"/>
+</bin>
