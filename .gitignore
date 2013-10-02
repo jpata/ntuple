@@ -1,0 +1,7 @@
+CMSSW/.SCRAM/
+CMSSW/bin/
+CMSSW/config/
+CMSSW/external/
+CMSSW/lib/
+CMSSW/python/
+CMSSW/tmp/
