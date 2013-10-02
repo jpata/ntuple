@@ -1,10 +1,13 @@
-all: example test
+all: lib example test
+
+clean:
+	cd CMSSW/src; eval `scramv1 runtime -sh`; scram b clean; scram b vclean;
 
 setup:
 	./setup.sh
 
-lib:
-	cd CMSSW/src; eval `scramv1 runtime -sh`; scram b clean; scram b vclean; scram b SingleTopPolarization/FWTools
+lib: clean
+	cd CMSSW/src; eval `scramv1 runtime -sh`; scram b SingleTopPolarization/FWTools
 
 example: lib
 	cd CMSSW/src; eval `scramv1 runtime -sh`; scram b -j16; eval `scramv1 runtime -sh`
