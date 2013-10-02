@@ -5,3 +5,5 @@ CMSSW/external/
 CMSSW/lib/
 CMSSW/python/
 CMSSW/tmp/
+
+test_edm.root
