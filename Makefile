@@ -3,8 +3,11 @@ all: example test
 setup:
 	./setup.sh
 
-example:
-	cd CMSSW/src; eval `scramv1 runtime -sh`; scram b clean; scram b vclean; scram b SingleTopPolarization/FWTools; scram b -j16; eval `scramv1 runtime -sh`
+lib:
+	cd CMSSW/src; eval `scramv1 runtime -sh`; scram b clean; scram b vclean; scram b SingleTopPolarization/FWTools
+
+example: lib
+	cd CMSSW/src; eval `scramv1 runtime -sh`; scram b -j16; eval `scramv1 runtime -sh`
 
 test: testc testpy
 testc:
