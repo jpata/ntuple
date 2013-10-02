@@ -8,4 +8,4 @@ example:
 
 test:
 	edmFileUtil test_edm.root || curl -k http://phys.hep.kbfi.ee/~joosep/test_edm.root -o test_edm.root
-	CMSSW/bin/$(SCRAM_ARCH)/eventloop_example
+	CMSSW/bin/$(SCRAM_ARCH)/stpol_testcode1
