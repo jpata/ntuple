@@ -1,7 +1,8 @@
 ntuple
 ======
 
-This package contains tools for working with EDM-style ntuples. A separate CMSSW setup is foreseen, since the EDM-style ntuples need very little supporting libraries.
+This package contains tools for working with EDM-style ntuples. A separate CMSSW setup is foreseen,
+since the EDM-style ntuples need very few supporting libraries apart from the base CMSSW setup.
 
 Setting up the code
 -------------------
