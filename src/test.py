@@ -8,24 +8,23 @@ from stpol import stpol, list_methods
 from DataFormats.FWLite import Events, Handle, Lumis
 
 #Print what methods are available for an object in a "flat" format for a simple overview
-print "Muon properties (stpol.stable.tchan.muon):"
-list_methods(stpol.stable.tchan.muon)
-print "Electron properties (stpol.stable.tchan.electron):"
-list_methods(stpol.stable.tchan.electron)
+#print "Muon properties (stpol.stable.tchan.muon):"
+#list_methods(stpol.stable.tchan.muon)
+#print "Electron properties (stpol.stable.tchan.electron):"
+#list_methods(stpol.stable.tchan.electron)
 
 
 #Open the list of files supplied on the command line
 file_list = sys.argv[1:]
 events = Events(file_list)
 
-
 #Very temporary short names for convenience
 e = stpol.stable.event
 sigmu = stpol.stable.tchan.muon
 sigele = stpol.stable.tchan.electron
 #Loop over the events
-for event in events:
 
+for event in events:
     print e.id(event)
     mu_pt = sigmu.pt(event)
     ele_pt = sigele.pt(event)

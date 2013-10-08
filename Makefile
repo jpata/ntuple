@@ -1,3 +1,7 @@
+TESTFILE=http://phys.hep.kbfi.ee/~joosep/test_100ev.root
+
+.PHONY: setup testfile
+
 all: lib example test
 
 clean:
@@ -12,11 +16,13 @@ lib: clean
 example: lib
 	cd CMSSW/src; eval `scramv1 runtime -sh`; scram b -j16; eval `scramv1 runtime -sh`
 
+testfile:
+	edmFileUtil test_edm.root || curl -k $(TESTFILE) -o test_edm.root && edmFileUtil test_edm.root
+
 test: testc testpy
-testc:
-	edmFileUtil test_edm.root || curl -k http://phys.hep.kbfi.ee/~joosep/test_edm.root -o test_edm.root
+
+testc: testfile
 	cd CMSSW/src; eval `scramv1 runtime -sh`; cd ../..; CMSSW/bin/$(SCRAM_ARCH)/stpol_testcode1
 
-testpy:
-	edmFileUtil test_edm.root || curl -k http://phys.hep.kbfi.ee/~joosep/test_edm.root -o test_edm.root
+testpy: testfile
 	python src/test.py test_edm.root
