@@ -39,3 +39,23 @@ To create your own code using this module in C++
 ### Python
 To create some code that uses the python library of ``$STPOL_DIR/src/headers/stpol.py``, considerably less setup is required.
 One should simply follow the example of ``src/test.py`` code can be placed/run from anywhere. Versioning is up to the developer.
+
+Troubleshooting
+---------------
+
+#Generic help
+
+Please always check and report the version hash of the main code and all the submodules using
+
+> git rev-parse HEAD; git submodule status --recursive
+
+#Errors related to `src/ntuples/src/test.py`
+    
+    Traceback (most recent call last):
+      File "src/test.py", line 37, in <module>
+        print "bjet_pt=", e.tchan.bjet.pt(event)
+    AttributeError: 'Event' object has no attribute 'tchan'
+    make: *** [testpy] Error 1
+
+* Check that you have the latest version of `stpol/src/headers/stpol.py` by doing `git fetch origin; git log HEAD..origin/master --oneline`
+* Make sure that you have correctly sourced `stpol/setenv.sh` and that `$STPOL_DIR` is pointing to where it should.
