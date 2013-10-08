@@ -43,13 +43,13 @@ One should simply follow the example of ``src/test.py`` code can be placed/run f
 Troubleshooting
 ---------------
 
-#Generic help
+### Generic help
 
 Please always check and report the version hash of the main code and all the submodules using
 
 > git rev-parse HEAD; git submodule status --recursive
 
-#Errors related to `src/ntuples/src/test.py`
+### Errors related to `src/ntuples/src/test.py`
     
     Traceback (most recent call last):
       File "src/test.py", line 37, in <module>
