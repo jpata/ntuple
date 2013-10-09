@@ -38,6 +38,21 @@ extern "C" {
         return new_handle<std::vector<float>>();
     }
 
+    void *new_handle_double()
+    {
+        return new_handle<double>();
+    }
+
+    void *new_handle_float()
+    {
+        return new_handle<float>();
+    }
+
+    void *new_handle_int()
+    {
+        return new_handle<int>();
+    }
+
     Array *get_branches(fwlite::ChainEvent *ev)
     {
         std::vector<const char *> *names = new std::vector<const char *>();
@@ -58,5 +73,29 @@ extern "C" {
         const edm::InputTag *label)
     {
         return get_by_label<std::vector<float>>(ev, handle, label);
+    }
+    
+    const void *get_by_label_double(
+        const fwlite::ChainEvent *ev,
+        fwlite::Handle<double> *handle,
+        const edm::InputTag *label)
+    {
+        return get_by_label<double>(ev, handle, label);
+    }
+    
+    const void *get_by_label_float(
+        const fwlite::ChainEvent *ev,
+        fwlite::Handle<float> *handle,
+        const edm::InputTag *label)
+    {
+        return get_by_label<float>(ev, handle, label);
+    }
+    
+    const void *get_by_label_int(
+        const fwlite::ChainEvent *ev,
+        fwlite::Handle<int> *handle,
+        const edm::InputTag *label)
+    {
+        return get_by_label<int>(ev, handle, label);
     }
 }
