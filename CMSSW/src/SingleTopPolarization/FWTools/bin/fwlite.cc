@@ -1,7 +1,8 @@
 #include "SingleTopPolarization/FWTools/interface/fwlite.hh"
+
 void initialize()
 {
-    gSystem->Load( "libFWCoreFWLite" );
+    gSystem->Load("libFWCoreFWLite");
     AutoLibraryLoader::enable();
     gSystem->Load("libDataFormatsFWLite");
     std::cout << "ROOT+FWLite initialized: " << gROOT->GetVersion() << std::endl;

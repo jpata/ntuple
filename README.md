@@ -47,7 +47,11 @@ Troubleshooting
 
 Please always check and report the version hash of the main code and all the submodules using
 
-> git rev-parse HEAD; git submodule status --recursive
+> git fetch origin; git log HEAD..origin/master --oneline; git rev-parse HEAD; git submodule status --recursive
+
+If any of the submodule hashes contain a ***+*** in the beginning, you need to run
+
+> git submodule update --recursive
 
 ### Errors related to `src/ntuples/src/test.py`
     
