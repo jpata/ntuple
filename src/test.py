@@ -24,6 +24,7 @@ sigmu = stpol.stable.tchan.muon
 sigele = stpol.stable.tchan.electron
 #Loop over the events
 
+
 for event in events:
     print e.id(event)
     mu_pt = sigmu.pt(event)
@@ -37,3 +38,5 @@ for event in events:
     print "ljet_pt=", stpol.stable.tchan.specjet1.pt(event)
     print "c=", e.c(event)
     print "costheta=", e.costheta.lj(event)
+    print "csv=", stpol.stable.tchan.bjet.bd_csv(event)
+    print "tchp=", stpol.stable.tchan.bjet.bd_tchp(event)
