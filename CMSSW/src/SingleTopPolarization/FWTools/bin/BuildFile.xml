@@ -14,6 +14,10 @@
     <Flags CXXFLAGS="-O2 -shared -fPIC -I$(CMSSW_BASE)/../ -I$(INCLUDE_DIR)"/>
 </library>
 
+<library name="plainroot" file="plain.cc">
+    <Flags CXXFLAGS="-O2 -shared -fPIC -I$(CMSSW_BASE)/../ -I$(INCLUDE_DIR)"/>
+</library>
+
 <library name="fwlevents_c" file="fwlevents_c.cc,fwlite.cc">
     <Flags CXXFLAGS="-O2 -shared -fPIC -I$(CMSSW_BASE)/../ -I$(INCLUDE_DIR)"/>
 </library>
