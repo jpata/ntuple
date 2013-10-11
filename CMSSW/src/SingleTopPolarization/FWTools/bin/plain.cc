@@ -1,6 +1,15 @@
 #include <TTree.h>
 #include <TFile.h>
+#include <TLeaf.h>
+
 #include "SingleTopPolarization/FWTools/interface/util.hh"
+
+struct TreeBranch
+{
+    char *name;
+    char *dtype;
+    TBranch *branch;
+};
 
 extern "C" {
 
@@ -41,9 +50,9 @@ extern "C" {
         return tree->Fill();
     }
 
-    void ttree_set_branch_address(TTree *tree, TBranch *br, const char *name)
+    int ttree_set_branch_address(TTree *tree, TBranch *br, const char *name)
     {
-        tree->SetBranchAddress(name, br);
+        return tree->SetBranchAddress(name, br);
     }
 
     long ttree_get_entries(TTree *tree)
@@ -59,6 +68,40 @@ extern "C" {
     long tbranch_get_entry(TBranch *branch, long n)
     {
         return branch->GetEntry(n);
+    }
+
+    Array *ttree_get_branches(TTree *tree)
+    {
+        TObjArray *brlist = tree->GetListOfBranches();
+        unsigned int n_branches = brlist->GetEntries();
+        TreeBranch *br_infos = (TreeBranch *)malloc(sizeof(TreeBranch) * n_branches);
+
+        Array *out = (Array *)malloc(sizeof(Array));
+        for (unsigned int i = 0; i < n_branches; i++)
+        {
+            TBranch *br = ((TBranch *)(*brlist)[i]);
+            //LogInfo << br->GetName() << std::endl;
+            if (br->GetNleaves() != 1)
+            {
+                //                LogInfo << "Complex branch n=" << i << ": " << br->GetName() << ", skipping" << std::endl;
+                continue;
+            }
+
+            TObjArray *leaves = br->GetListOfLeaves();
+            TLeaf *leaf = br->GetLeaf((*leaves)[0]->GetName());
+            //Need to include +1 for terminator
+            br_infos[i].name = (char *)malloc(sizeof(char) * (1 + strlen(br->GetName())));
+            br_infos[i].dtype = (char *)malloc(sizeof(char) * (1 + strlen(leaf->GetTypeName())));
+            br_infos[i].branch = br;
+            strcpy(br_infos[i].name, br->GetName());
+            strcpy(br_infos[i].dtype, leaf->GetTypeName());
+            //LogInfo << br_infos[i].name << ":" << br_infos[i].dtype << std::endl;
+        }
+        out->start = (void *)br_infos;
+        out->size = sizeof(TreeBranch);
+        out->n_elems = n_branches;
+
+        return out;
     }
 
 
