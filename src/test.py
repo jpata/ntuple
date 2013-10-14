@@ -19,7 +19,12 @@ file_list = sys.argv[1:]
 events = Events(file_list)
 
 for fi in file_list:
-    print fi, stpol.stable.file.total_processed(fi), stpol.stable.file.sample_type(fi)
+    try:
+        typ = stpol.stable.file.sample_type(fi)
+    except:
+        print "could not parse file name"
+        typ = {}
+    print fi, stpol.stable.file.total_processed(fi), typ
 
 #Very temporary short names for convenience
 e = stpol.stable.event
