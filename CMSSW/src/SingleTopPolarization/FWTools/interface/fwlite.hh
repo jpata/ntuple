@@ -9,11 +9,14 @@
 #include <TSystem.h>
 #include <TROOT.h>
 #include <TTree.h>
+#include <TFile.h>
 
 #include <DataFormats/FWLite/interface/ChainEvent.h>
 #include <DataFormats/FWLite/interface/Handle.h>
 #include <FWCore/FWLite/interface/AutoLibraryLoader.h>
 #include <DataFormats/Provenance/interface/EventID.h>
+
+#include <DataFormats/Common/interface/MergeableCounter.h>
 
 using namespace std;
 
@@ -35,11 +38,18 @@ public:
         run(_run), lumi(_lumi), event(_event) {};
 };
 
+//exports
 extern "C" {
     void initialize();
     const vector<float> *get_vfloat(fwlite::Handle<vector<float>> *h, fwlite::ChainEvent *ev, const label &l);
     const event_id get_event_id(fw_event *ev);
+
+    long get_counter_sum(const char **fnames, unsigned int n_fnames, const char *src);
+
+    bool passes_triggers(fw_event *event, const char **trignames, unsigned int n_trignames);
 }
+
+
 
 //Specific to the C(++) interface
 
