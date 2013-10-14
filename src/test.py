@@ -18,6 +18,9 @@ from DataFormats.FWLite import Events, Handle, Lumis
 file_list = sys.argv[1:]
 events = Events(file_list)
 
+for fi in file_list:
+    print fi, stpol.stable.file.total_processed(fi), stpol.stable.file.sample_type(fi)
+
 #Very temporary short names for convenience
 e = stpol.stable.event
 sigmu = stpol.stable.tchan.muon
