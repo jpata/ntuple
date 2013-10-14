@@ -1,6 +1,9 @@
 #include "SingleTopPolarization/FWTools/interface/fwlite.hh"
 #include "SingleTopPolarization/FWTools/interface/util.hh"
 
+#include <DataFormats/Common/interface/MergeableCounter.h>
+#include <TFile.h>
+
 extern "C" {
 
     void *new_inputtag(const char *label, const char *instance, const char *process)
@@ -16,6 +19,24 @@ extern "C" {
             fn.push_back(fnames[i]);
         }
         return new fwlite::ChainEvent(fn);
+    }
+
+    long get_counter_sum(const char **fnames, unsigned int n_fnames, const char *src)
+    {
+        long ret = 0;
+        for (unsigned int i = 0; i < n_fnames; i++)
+        {
+            TFile *f = new TFile(fnames[i]);
+            fwlite::LuminosityBlock ls(f);
+            for (ls.toBegin(); !ls.atEnd(); ++ls)
+            {
+                edm::Handle<edm::MergeableCounter> counter;
+                ls.getByLabel(edm::InputTag(src), counter);
+                ret += counter->value;
+            }
+            f->Close();
+        }
+        return ret;
     }
 
     bool events_to(fwlite::ChainEvent *ev, long n)
@@ -74,7 +95,7 @@ extern "C" {
     {
         return get_by_label<std::vector<float>>(ev, handle, label);
     }
-    
+
     const void *get_by_label_double(
         const fwlite::ChainEvent *ev,
         fwlite::Handle<double> *handle,
@@ -82,7 +103,7 @@ extern "C" {
     {
         return get_by_label<double>(ev, handle, label);
     }
-    
+
     const void *get_by_label_float(
         const fwlite::ChainEvent *ev,
         fwlite::Handle<float> *handle,
@@ -90,7 +111,7 @@ extern "C" {
     {
         return get_by_label<float>(ev, handle, label);
     }
-    
+
     const void *get_by_label_int(
         const fwlite::ChainEvent *ev,
         fwlite::Handle<int> *handle,
