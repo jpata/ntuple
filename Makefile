@@ -19,10 +19,7 @@ example: lib
 testfile:
 	edmFileUtil test_edm.root || curl -k $(TESTFILE) -o test_edm.root && edmFileUtil test_edm.root
 
-test: testc testpy
+test: testc
 
 testc: testfile
 	cd CMSSW/src; eval `scramv1 runtime -sh`; cd ../..; CMSSW/bin/$(SCRAM_ARCH)/stpol_testcode1
-
-testpy: testfile
-	python src/test.py test_edm.root
