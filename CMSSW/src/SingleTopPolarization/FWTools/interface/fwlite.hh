@@ -83,7 +83,11 @@ void *new_wrapper()
 template <typename T>
 inline const T *get_by_label(const fwlite::ChainEvent *ev, fwlite::Handle<T> *handle, const edm::InputTag *itag)
 {
-    handle->getByLabel(*ev, itag->label().c_str(), itag->instance().c_str(), itag->process().c_str());
-    return handle->isValid() ? handle->product() : 0;
+    try {
+        handle->getByLabel(*ev, itag->label().c_str(), itag->instance().c_str(), itag->process().c_str());
+        return handle->isValid() ? handle->product() : 0;
+    } catch (...) {
+        return 0;
+    }
 }
 #endif

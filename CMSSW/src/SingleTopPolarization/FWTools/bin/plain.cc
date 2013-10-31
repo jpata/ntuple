@@ -15,7 +15,7 @@ extern "C" {
 
     TFile *new_tfile(const char *name, const char *op)
     {
-        return TFile::Open(name, op);
+        return TFile::Open(name, op, 0);
     }
 
     TTree *new_ttree(TFile *fi, const char *name)

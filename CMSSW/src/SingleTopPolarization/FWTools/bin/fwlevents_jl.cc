@@ -1,5 +1,7 @@
 #include "SingleTopPolarization/FWTools/interface/fwlite.hh"
 #include "SingleTopPolarization/FWTools/interface/util.hh"
+#include <sys/utsname.h>
+#include <unistd.h>
 
 extern "C" {
 
@@ -13,7 +15,27 @@ extern "C" {
         std::vector<std::string> fn;
         for (unsigned int i = 0; i < n_fnames; i++)
         {
-            fn.push_back(fnames[i]);
+            bool success=false;
+            for (unsigned int j=0;j<10;j++) {
+                TFile* fi = TFile::Open(fnames[i]);
+                if (fi==0) {
+                    struct utsname name;
+                    int result = uname(&name);
+                    if (result == 0)
+                        std::cerr << "failed to open file " << fnames[i] << " on try " << j << " on hostname " << name.nodename << std::endl;
+                    else
+                        std::cerr << "failed to open file " << fnames[i] << " on try " << j << " on hostname ???" << std::endl;
+                } else {
+                    fi->Close();
+                    success=true;
+                    break;
+                }
+                sleep(1);
+            }
+            if (success)
+                fn.push_back(fnames[i]);
+            else
+                throw 1;
         }
         return new fwlite::ChainEvent(fn);
     }
@@ -51,6 +73,11 @@ extern "C" {
     void *new_handle_int()
     {
         return new_handle<int>();
+    }
+    
+    void *new_handle_uint()
+    {
+        return new_handle<unsigned int>();
     }
 
     Array *get_branches(fwlite::ChainEvent *ev)
@@ -97,5 +124,13 @@ extern "C" {
         const edm::InputTag *label)
     {
         return get_by_label<int>(ev, handle, label);
+    }
+    
+    const void *get_by_label_uint(
+        const fwlite::ChainEvent *ev,
+        fwlite::Handle<unsigned int> *handle,
+        const edm::InputTag *label)
+    {
+        return get_by_label<unsigned int>(ev, handle, label);
     }
 }
