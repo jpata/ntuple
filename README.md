@@ -47,14 +47,3 @@ Please always check and report the version hash of the main code and all the sub
 If any of the submodule hashes contain a ***+*** in the beginning, you need to run
 
 > git submodule update --recursive
-
-### Errors related to `src/ntuples/src/test.py`
-    
-    Traceback (most recent call last):
-      File "src/test.py", line 37, in <module>
-        print "bjet_pt=", e.tchan.bjet.pt(event)
-    AttributeError: 'Event' object has no attribute 'tchan'
-    make: *** [testpy] Error 1
-
-* Check that you have the latest version of `stpol/src/headers/stpol.py` by doing `git fetch origin; git log HEAD..origin/master --oneline`
-* Make sure that you have correctly sourced `stpol/setenv.sh` and that `$STPOL_DIR` is pointing to where it should.
