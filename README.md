@@ -3,15 +3,11 @@ ntuple
 
 This package contains tools for working with EDM-style ntuples. A separate CMSSW setup is foreseen,
 since the EDM-style ntuples need very few supporting libraries apart from the base CMSSW setup.
-Currently, the examples in this library require the single top specific headers ``stpol.hh``, ``stpol.py``,
-which can be aquired from https://github.com/HEP-KBFI/stpol. 
 
 Contents
 --------
 
 * ``CMSSW/src/SingleTopPolarization/FWTools`` contains the wrappers for accessing the EDM objects from C++.
-* ``CMSSW/src/SingleTopPolarization/stpol_testcode1`` is a very simple test code for the Cpp wrapper, implemented as a separate submodule.
-* ``src/test.py`` is a very simple example python code for accessing EDM objects.
 * ``Makefile`` is the main Makefile, supporting ``make setup/all/test``.
 
 Setting up the code
@@ -19,8 +15,7 @@ Setting up the code
 
 Clone the repo into the the ``$STPOL_DIR/src`` directory. This is needed to access the singletop polarization specific headers from ``$STPOL_DIR/src/headers``.
 
-1. Run ``./setup.sh`` to set up CMSSW and the example code.
-2. Run ``make`` to compile and test the simple example ``stpol_testcode1`` of the C++ interface and ``src/test.py`` of the python interface.
+1. Run ``./setup.sh`` to set up CMSSW.
 
 Using this library
 -----------------
