@@ -16,7 +16,12 @@ const vector<float> *get_vfloat(fwlite::Handle<vector<float>> *h, fwlite::ChainE
 const event_id get_event_id(fw_event *ev)
 {
     edm::EventID id = ev->id();
-    return event_id(id.run(), id.luminosityBlock(), id.event());
+
+    event_id x((unsigned int)id.run(), (unsigned int)id.luminosityBlock(), (unsigned int)id.event());
+    //x.run = id.run();
+    //x.lumi = id.luminosityBlock();
+    //x.event = id.event();
+    return x;
 }
 
 long get_counter_sum(const char **fnames, unsigned int n_fnames, const char *src)

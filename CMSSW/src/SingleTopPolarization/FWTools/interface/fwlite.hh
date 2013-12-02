@@ -25,17 +25,26 @@ typedef map<label, void *> handle_container;
 typedef fwlite::Handle<vector<float>> h_vfloat;
 typedef fwlite::ChainEvent fw_event;
 
-class event_id
-{
-public:
+//class event_id
+//{
+//public:
+//
+//    typedef const unsigned int val_t;
+//    val_t run;
+//    val_t lumi;
+//    val_t event;
+//
+//    event_id(val_t _run, val_t _lumi, val_t _event) :
+//        run(_run), lumi(_lumi), event(_event) {};
+//};
 
-    typedef const unsigned int val_t;
+typedef const unsigned int val_t;
+struct event_id
+{
     val_t run;
     val_t lumi;
     val_t event;
-
-    event_id(val_t _run, val_t _lumi, val_t _event) :
-        run(_run), lumi(_lumi), event(_event) {};
+    event_id(unsigned int _run, unsigned int _lumi, unsigned int _event) : run(_run), lumi(_lumi), event(_event) {};
 };
 
 //exports
