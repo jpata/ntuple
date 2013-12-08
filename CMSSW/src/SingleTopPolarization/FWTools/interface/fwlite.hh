@@ -38,20 +38,19 @@ typedef fwlite::ChainEvent fw_event;
 //        run(_run), lumi(_lumi), event(_event) {};
 //};
 
-typedef const unsigned int val_t;
+typedef unsigned int val_t;
 struct event_id
 {
     val_t run;
     val_t lumi;
     val_t event;
-    event_id(unsigned int _run, unsigned int _lumi, unsigned int _event) : run(_run), lumi(_lumi), event(_event) {};
 };
 
 //exports
 extern "C" {
     void initialize();
     const vector<float> *get_vfloat(fwlite::Handle<vector<float>> *h, fwlite::ChainEvent *ev, const label &l);
-    const event_id get_event_id(fw_event *ev);
+    event_id get_event_id(fw_event *ev);
 
     long get_counter_sum(const char **fnames, unsigned int n_fnames, const char *src);
 

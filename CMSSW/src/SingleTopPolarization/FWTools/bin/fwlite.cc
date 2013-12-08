@@ -13,14 +13,14 @@ void initialize()
 
 const vector<float> *get_vfloat(fwlite::Handle<vector<float>> *h, fwlite::ChainEvent *ev, const label &l);
 
-const event_id get_event_id(fw_event *ev)
+event_id get_event_id(fw_event *ev)
 {
     edm::EventID id = ev->id();
 
-    event_id x((unsigned int)id.run(), (unsigned int)id.luminosityBlock(), (unsigned int)id.event());
-    //x.run = id.run();
-    //x.lumi = id.luminosityBlock();
-    //x.event = id.event();
+    event_id x; 
+    x.run = id.run();
+    x.lumi = id.luminosityBlock();
+    x.event = id.event();
     return x;
 }
 
