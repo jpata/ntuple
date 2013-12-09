@@ -15,7 +15,7 @@ extern "C" {
 
     TFile *new_tfile(const char *name, const char *op)
     {
-        return TFile::Open(name, op, 0);
+        return TFile::Open(name, op, name, 0);
     }
 
     TTree *new_ttree(TFile *fi, const char *name)
@@ -68,6 +68,12 @@ extern "C" {
     long tbranch_get_entry(TBranch *branch, long n)
     {
         return branch->GetEntry(n);
+    }
+
+    void ttree_cache(TTree* tree)
+    {
+        tree->SetCacheSize(10000000);
+        tree->AddBranchToCache("*");
     }
 
     Array *ttree_get_branches(TTree *tree)
