@@ -5,6 +5,7 @@
 
 void initialize()
 {
+    setvbuf(stdout, (char *)NULL, _IOLBF, 0);
     gSystem->Load("libFWCoreFWLite");
     AutoLibraryLoader::enable();
     gSystem->Load("libDataFormatsFWLite");
