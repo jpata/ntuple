@@ -50,8 +50,7 @@ struct event_id
 extern "C" {
     void initialize();
     const vector<float> *get_vfloat(fwlite::Handle<vector<float>> *h, fwlite::ChainEvent *ev, const label &l);
-    event_id get_event_id(fw_event *ev);
-
+    
     long get_counter_sum(const char **fnames, unsigned int n_fnames, const char *src);
 
     bool passes_triggers(fw_event *event, const char **trignames, unsigned int n_trignames);

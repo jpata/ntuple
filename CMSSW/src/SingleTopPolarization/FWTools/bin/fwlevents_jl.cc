@@ -15,28 +15,14 @@ extern "C" {
         std::vector<std::string> fn;
         for (unsigned int i = 0; i < n_fnames; i++)
         {
-            bool success=false;
-            for (unsigned int j=0;j<10;j++) {
-                TFile* fi = TFile::Open(fnames[i]);
-                if (fi==0) {
-                    struct utsname name;
-                    int result = uname(&name);
-                    if (result == 0)
-                        std::cerr << "failed to open file " << fnames[i] << " on try " << j << " on hostname " << name.nodename << std::endl;
-                    else
-                        std::cerr << "failed to open file " << fnames[i] << " on try " << j << " on hostname ???" << std::endl;
-                } else {
-                    fi->Close();
-                    success=true;
-                    break;
-                }
-                sleep(1);
-            }
-            if (success)
-                fn.push_back(fnames[i]);
-            else
-                throw 1;
+            fn.push_back(fnames[i]);
         }
+
+        //int i = 1;
+        //for (auto& s : fn) {
+        //    std::cout << "fwlevents_jl infile " << i << " " << s << std::endl;
+        //    i++;
+        //}
         return new fwlite::ChainEvent(fn);
     }
 
@@ -53,6 +39,16 @@ extern "C" {
     long events_fileindex(fwlite::ChainEvent *ev)
     {
         return ev->fileIndex();
+    }
+    
+    long events_eventindex(fwlite::ChainEvent *ev)
+    {
+        return ev->eventIndex();
+    }
+    
+    const char* events_tfile_path(fwlite::ChainEvent *ev)
+    {
+        return ev->getTFile()->GetPath();
     }
 
     void *new_handle_vfloat()
@@ -132,5 +128,23 @@ extern "C" {
         const edm::InputTag *label)
     {
         return get_by_label<unsigned int>(ev, handle, label);
+    }
+
+    long get_event_run(fw_event *ev)
+    {
+        edm::EventID id = ev->id();
+        return id.run();
+    }
+    
+    long get_event_lumi(fw_event *ev)
+    {
+        edm::EventID id = ev->id();
+        return id.luminosityBlock();
+    }
+    
+    long get_event_event(fw_event *ev)
+    {
+        edm::EventID id = ev->id();
+        return id.event();
     }
 }

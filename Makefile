@@ -10,5 +10,5 @@ clean:
 setup:
 	./setup.sh
 
-lib: clean
+lib:
 	cd CMSSW/src; eval `scramv1 runtime -sh`; scram b SingleTopPolarization/FWTools
