@@ -11,4 +11,4 @@ setup:
 	./setup.sh
 
 lib:
-	cd CMSSW/src; eval `scramv1 runtime -sh`; scram b SingleTopPolarization/FWTools
+	cd CMSSW/src; eval `scramv1 runtime -sh`; scram b -j4 SingleTopPolarization/FWTools
