@@ -35,6 +35,16 @@ extern "C" {
         return fi->Get(key);
     }
 
+    void *tfile_mkdir(TFile *fi, const char *dir)
+    {
+        return fi->mkdir(dir);
+    }
+
+    void *tfile_cd(TFile *fi, const char *dir)
+    {
+        return fi->cd(dir);
+    }
+
     TBranch *new_tbranch(TTree *tree, const char *brname, void *braddr, const char *leaflist)
     {
         return new TBranch(tree, brname, braddr, leaflist);
