@@ -40,7 +40,7 @@ extern "C" {
         return fi->mkdir(dir);
     }
 
-    void *tfile_cd(TFile *fi, const char *dir)
+    bool tfile_cd(TFile *fi, const char *dir)
     {
         return fi->cd(dir);
     }
