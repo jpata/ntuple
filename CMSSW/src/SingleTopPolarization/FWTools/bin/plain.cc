@@ -1,4 +1,5 @@
 #include <TTree.h>
+#include <TChain.h>
 #include <TFile.h>
 #include <TLeaf.h>
 
@@ -23,6 +24,12 @@ extern "C" {
         fi->cd();
         return new TTree(name, name);
     }
+    
+    TTree *new_tchain(TFile *fi, const char *name)
+    {
+        fi->cd();
+        return new TChain(name, name);
+    }
 
     void tfile_close(TFile *fi)
     {
@@ -33,6 +40,11 @@ extern "C" {
     void *tfile_get(TFile *fi, const char *key)
     {
         return fi->Get(key);
+    }
+
+    bool tchain_add_file(TChain *ch, const char *file)
+    {
+        return ch->AddFile(file);
     }
 
     TBranch *new_tbranch(TTree *tree, const char *brname, void *braddr, const char *leaflist)
