@@ -36,6 +36,11 @@ extern "C" {
         fi->Write();
         fi->Close();
     }
+    
+    void ttree_write(TTree* t)
+    {
+        t->Write("", TObject::kOverwrite);
+    }
 
     void *tfile_get(TFile *fi, const char *key)
     {
@@ -55,6 +60,7 @@ extern "C" {
     bool tfile_cd(TFile *fi, const char *dir)
     {
         return fi->cd(dir);
+    }
 
     TBranch *new_tbranch(TTree *tree, const char *brname, void *braddr, const char *leaflist)
     {
@@ -69,6 +75,11 @@ extern "C" {
     long ttree_fill(TTree *tree)
     {
         return tree->Fill();
+    }
+    
+    long tbranch_fill(TBranch *branch)
+    {
+        return branch->Fill();
     }
 
     int ttree_set_branch_address(TTree *tree, TBranch *br, const char *name)
