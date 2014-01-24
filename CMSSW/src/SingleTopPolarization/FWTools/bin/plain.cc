@@ -33,11 +33,16 @@ extern "C" {
 
     void tfile_close(TFile *fi)
     {
-        fi->Write();
+        //fi->Write();
         fi->Close();
     }
     
     void ttree_write(TTree* t)
+    {
+        t->Write("", TObject::kOverwrite);
+    }
+    
+    void tbranch_write(TBranch* t)
     {
         t->Write("", TObject::kOverwrite);
     }
