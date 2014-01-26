@@ -2,6 +2,8 @@
 #include <TChain.h>
 #include <TFile.h>
 #include <TLeaf.h>
+#include <TH1D.h>
+#include <TH2D.h>
 
 #include "SingleTopPolarization/FWTools/interface/util.hh"
 
@@ -36,15 +38,20 @@ extern "C" {
         //fi->Write();
         fi->Close();
     }
-    
-    void ttree_write(TTree* t)
+
+    void tobject_write(TObject* t)
     {
         t->Write("", TObject::kOverwrite);
+    }
+
+    void ttree_write(TTree* t)
+    {
+        tobject_write(t);
     }
     
     void tbranch_write(TBranch* t)
     {
-        t->Write("", TObject::kOverwrite);
+        tobject_write(t);
     }
 
     void *tfile_get(TFile *fi, const char *key)
@@ -60,6 +67,11 @@ extern "C" {
     void *tfile_mkdir(TFile *fi, const char *dir)
     {
         return fi->mkdir(dir);
+    }
+
+    void tfile_ls(TFile *fi)
+    {
+        fi->ls();
     }
 
     bool tfile_cd(TFile *fi, const char *dir)
@@ -156,5 +168,58 @@ extern "C" {
         return out;
     }
 
+    void* new_th1d(
+        const char* name,
+        unsigned int nbins, //N 
+        double* edges, //N+1 low1, low2, ... ,lowN, highN
+        double* bins, //N+2 under, 1, 2, ... , over
+        double* errors, //N+2 under, 1, 2, ... , over
+        const char** labels=0  //N+1 under, 1, 2, ... , over
+    ) {
 
+        TH1D* hi = new TH1D(name, name, nbins-1, edges);
+        //0 - underflow, nbins - overflow
+        for (unsigned int i=0;i<=nbins;i++) {
+            hi->SetBinContent(i, bins[i]);
+            hi->SetBinError(i, errors[i]);
+            if (labels!=0 && i>0 && i<nbins) {
+                hi->GetXaxis()->SetBinLabel(i, labels[i-1]);
+            }
+        }
+        return hi;
+    }
+
+    void* new_th2d(
+        const char* name,
+        unsigned int nbins_x, 
+        unsigned int nbins_y,
+
+        double* edges_x,
+        double* edges_y,
+
+        double** bins,
+
+        double** errors,
+
+        const char** labels_x=0,
+        const char** labels_y=0
+    ) {
+        TH2D* hi = new TH2D(name, name, nbins_x-1, edges_x, nbins_y-1, edges_y);
+        for (unsigned int x=0;x<=nbins_x;x++) {
+            
+            if (labels_x!=0 && x>0 && x<nbins_x) {
+                hi->GetXaxis()->SetBinLabel(x, labels_x[x-1]);
+            }
+
+            for (unsigned int y=0;y<=nbins_y;y++) {
+                hi->SetBinContent(x, y, bins[x][y]);
+                hi->SetBinError(x, y, errors[x][y]);
+
+                if (labels_y!=0 && y>0 && y<nbins_y) {
+                    hi->GetYaxis()->SetBinLabel(y, labels_y[y-1]);
+                }
+            }
+        }
+        return hi;
+    }
 }
