@@ -70,6 +70,11 @@ extern "C" {
     {
         return new_handle<int>();
     }
+
+    void *new_handle_string()
+    {
+        return new_handle<std::string>();
+    }
     
     void *new_handle_uint()
     {
@@ -128,6 +133,15 @@ extern "C" {
         const edm::InputTag *label)
     {
         return get_by_label<unsigned int>(ev, handle, label);
+    }
+
+    const void *get_by_label_string(
+        const fwlite::ChainEvent *ev,
+        fwlite::Handle<std::string> *handle,
+        const edm::InputTag *label)
+    {
+        const std::string* x = get_by_label<std::string>(ev, handle, label);
+        return x!=NULL ? (void*)(x->c_str()) : (void*)x;
     }
 
     long get_event_run(fw_event *ev)
