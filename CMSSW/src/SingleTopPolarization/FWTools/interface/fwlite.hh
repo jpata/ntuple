@@ -16,6 +16,8 @@
 #include <FWCore/FWLite/interface/AutoLibraryLoader.h>
 #include <DataFormats/Provenance/interface/EventID.h>
 
+#include <DataFormats/HepMCCandidate/interface/GenParticle.h>
+
 #include <DataFormats/Common/interface/MergeableCounter.h>
 
 using namespace std;

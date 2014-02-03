@@ -4,7 +4,9 @@
 #include <TLeaf.h>
 #include <TH1D.h>
 #include <TH2D.h>
+#include <TAxis.h>
 
+#include <iostream>
 #include "SingleTopPolarization/FWTools/interface/util.hh"
 
 struct TreeBranch
@@ -187,6 +189,23 @@ extern "C" {
             }
         }
         return hi;
+    }
+
+    void set_axis_label(TH1* h, int a, const char* label) {
+        if (a<1 || a>3) {
+            std::cerr << "incorrect axis index " << a << " !in [1,3]." << std::endl;
+            return;
+        }
+
+        TAxis* ax = 0;
+        if (a==1)
+            ax = h->GetXaxis();
+        if (a==2)
+            ax = h->GetYaxis();
+        if (a==3)
+            ax = h->GetZaxis();
+
+        ax->SetTitle(label);
     }
 
     void* new_th2d(
