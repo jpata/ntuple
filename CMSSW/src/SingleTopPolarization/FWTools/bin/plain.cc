@@ -176,7 +176,8 @@ extern "C" {
         double* edges, //N+1 low1, low2, ... ,lowN, highN
         double* bins, //N+2 under, 1, 2, ... , over
         double* errors, //N+2 under, 1, 2, ... , over
-        const char** labels=0  //N+1 under, 1, 2, ... , over
+        const char** labels=0,  //N+1 under, 1, 2, ... , over
+        const double nentries=0.0
     ) {
 
         TH1D* hi = new TH1D(name, name, nbins-1, edges);
@@ -188,6 +189,7 @@ extern "C" {
                 hi->GetXaxis()->SetBinLabel(i, labels[i-1]);
             }
         }
+        hi->SetEntries(nentries);
         return hi;
     }
 
@@ -221,7 +223,8 @@ extern "C" {
         double** errors,
 
         const char** labels_x=0,
-        const char** labels_y=0
+        const char** labels_y=0,
+        const double nentries=0.0
     ) {
         TH2D* hi = new TH2D(name, name, nbins_x-1, edges_x, nbins_y-1, edges_y);
         for (unsigned int x=0;x<=nbins_x;x++) {
@@ -239,6 +242,7 @@ extern "C" {
                 }
             }
         }
+        hi->SetEntries(nentries);
         return hi;
     }
 }
