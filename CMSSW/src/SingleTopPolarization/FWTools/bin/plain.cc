@@ -5,6 +5,7 @@
 #include <TH1D.h>
 #include <TH2D.h>
 #include <TAxis.h>
+#include <TMVA/Reader.h>
 
 #include <iostream>
 #include "SingleTopPolarization/FWTools/interface/util.hh"
@@ -244,5 +245,33 @@ extern "C" {
         }
         hi->SetEntries(nentries);
         return hi;
+    }
+
+
+    ///
+    /// TMVA wrappers
+    ///
+    void* new_tmva_reader(const char* name) {
+        return new TMVA::Reader(name);
+    }
+
+    void tmva_reader_add_variable(TMVA::Reader* reader, const char* name, float* p, unsigned int var_type) {
+        if (var_type==0) {
+            reader->AddVariable(TString(name), p);
+        }
+        else if (var_type==1) {
+            reader->AddSpectator(TString(name), p);
+        }
+        else {
+            throw std::exception();
+        }
+    }
+
+    void tmva_book_mva(TMVA::Reader* reader, const char* mva_name, const char* weight_file) {
+        reader->BookMVA(mva_name, weight_file);
+    }
+
+    double tmva_evaluate_mva(TMVA::Reader* reader, const char* mva_name) {
+        return (double)(reader->EvaluateMVA(mva_name));
     }
 }
