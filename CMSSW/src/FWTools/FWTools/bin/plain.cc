@@ -8,7 +8,7 @@
 #include <TMVA/Reader.h>
 
 #include <iostream>
-#include "SingleTopPolarization/FWTools/interface/util.hh"
+#include "FWTools/FWTools/interface/util.hh"
 
 struct TreeBranch
 {

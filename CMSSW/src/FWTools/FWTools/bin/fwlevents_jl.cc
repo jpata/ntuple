@@ -1,5 +1,5 @@
-#include "SingleTopPolarization/FWTools/interface/fwlite.hh"
-#include "SingleTopPolarization/FWTools/interface/util.hh"
+#include "FWTools/FWTools/interface/fwlite.hh"
+#include "FWTools/FWTools/interface/util.hh"
 #include <sys/utsname.h>
 #include <unistd.h>
 

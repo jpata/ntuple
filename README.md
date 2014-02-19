@@ -7,7 +7,7 @@ since the EDM-style ntuples need very few supporting libraries apart from the ba
 Contents
 --------
 
-* ``CMSSW/src/SingleTopPolarization/FWTools`` contains the wrappers for accessing the EDM objects from C++.
+* ``CMSSW/src/FWTools/FWTools`` contains the wrappers for accessing the EDM objects from C++.
 * ``Makefile`` is the main Makefile, supporting ``make setup/all/test``.
 
 Setting up the code
@@ -28,12 +28,8 @@ To create your own code using this module in C++
 
 1. Create a new repo using the example of https://github.com/jpata/stpol_testcode1
 2. Add your newly created repo to the ``ntuple`` package as a submodule by doing
-``git submodule add git@github.com:jpata/stpol_testcode1.git CMSSW/src/SingleTopPolarization/stpol_testcode1``
-3. Compile your code using the standard CMSSW command ``scram b SingleTopPolarization/stpol_testcode1`` 
-
-### Python
-To create some code that uses the python library of ``$STPOL_DIR/src/headers/stpol.py``, considerably less setup is required.
-One should simply follow the example of ``src/test.py`` code can be placed/run from anywhere. Versioning is up to the developer.
+``git submodule add git@github.com:jpata/stpol_testcode1.git CMSSW/src/FWTools/stpol_testcode1``
+3. Compile your code using the standard CMSSW command ``scram b FWTools/stpol_testcode1`` 
 
 Troubleshooting
 ---------------

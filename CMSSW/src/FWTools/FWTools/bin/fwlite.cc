@@ -1,4 +1,4 @@
-#include "SingleTopPolarization/FWTools/interface/fwlite.hh"
+#include "FWTools/FWTools/interface/fwlite.hh"
 
 #include <DataFormats/Common/interface/TriggerResults.h>
 #include <FWCore/Common/interface/TriggerNames.h>
