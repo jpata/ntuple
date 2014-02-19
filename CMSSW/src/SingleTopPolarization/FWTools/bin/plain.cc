@@ -247,6 +247,35 @@ extern "C" {
         return hi;
     }
 
+    double th1d_get_bin_content(TH1D* h, unsigned int n) {
+        return h->GetBinContent(n);
+    }
+
+    double th1d_get_bin_error(TH1D* h, unsigned int n) {
+        return h->GetBinError(n);
+    }
+
+    double th2d_get_bin_content(TH2D* h, unsigned int n, unsigned int m) {
+        return h->GetBinContent(n, m);
+    }
+
+    double th2d_get_bin_error(TH2D* h, unsigned int n, unsigned int m) {
+        return h->GetBinError(n, m);
+    }
+
+    int th1d_get_n_bins(TH1D* h, unsigned int n) {
+        if (n == 1) {
+            return h->GetNbinsX();
+        }
+        else if (n == 2) {
+            return h->GetNbinsY();
+        }
+        else if (n == 3) {
+            return h->GetNbinsZ();
+        }
+        return -1;
+    }
+
 
     ///
     /// TMVA wrappers
