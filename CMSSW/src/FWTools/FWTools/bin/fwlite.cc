@@ -14,7 +14,6 @@ void initialize()
 
 const vector<float> *get_vfloat(fwlite::Handle<vector<float>> *h, fwlite::ChainEvent *ev, const label &l);
 
-
 long get_counter_sum(const char **fnames, unsigned int n_fnames, const char *src)
 {
     long ret = 0;
