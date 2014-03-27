@@ -23,20 +23,20 @@ extern "C" {
                 fn.push_back(fnames[i]);
                 tf->Close();
             } else {
-                std::cerr << "could not open file " << fnames[i] << ", skipping" << std::endl;
+                std::cerr << "fwlevents_jl::new_chain_event() could not open file " << fnames[i] << std::endl;
                 return 0;
             }
         }
         
         void* p = 0;
         for (auto & s : fn)
-            std::cout << " fwlevents_jl:ChainEvent -> " << s << std::endl;
+            std::cout << " fwlevents_jl:new_chain_event() opening -> " << s << std::endl;
        
         //return 0 pointer in case opening ChainEvent failed
         try {
             p = new fwlite::ChainEvent(fn);
         } catch (...) {
-            std::cerr << "could not create ChainEvent:" << std::endl;
+            std::cerr << "fwlevents_jl::new_chain_event() could not create ChainEvent " << std::endl;
             return 0;
         }
         return p;
