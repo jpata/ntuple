@@ -24,10 +24,6 @@
     <Flags CXXFLAGS="-O2 -shared -fPIC -I$(CMSSW_BASE)/../ -I$(INCLUDE_DIR)"/>
 </library>
 
-<bin name="simple_loop" file="simple_loop.cc">
-    <Flags CXXFLAGS="-O3"/>
-</bin>
-
 <export>
     <lib name="FWTools/FWTools" />
 </export>

@@ -13,17 +13,33 @@ extern "C" {
     void *new_chain_event(const char **fnames, unsigned int n_fnames)
     {
         std::vector<std::string> fn;
+
+        //loop over input files, in case opening fails return 0 pointer
         for (unsigned int i = 0; i < n_fnames; i++)
         {
-            fn.push_back(fnames[i]);
+            //fn.push_back(fnames[i]);
+            TFile* tf = TFile::Open(fnames[i]);
+            if (tf != NULL && !(tf->IsZombie())) {
+                fn.push_back(fnames[i]);
+                tf->Close();
+            } else {
+                std::cerr << "could not open file " << fnames[i] << ", skipping" << std::endl;
+                return 0;
+            }
         }
-
-        //int i = 1;
-        //for (auto& s : fn) {
-        //    std::cout << "fwlevents_jl infile " << i << " " << s << std::endl;
-        //    i++;
-        //}
-        return new fwlite::ChainEvent(fn);
+        
+        void* p = 0;
+        for (auto & s : fn)
+            std::cout << " fwlevents_jl:ChainEvent -> " << s << std::endl;
+       
+        //return 0 pointer in case opening ChainEvent failed
+        try {
+            p = new fwlite::ChainEvent(fn);
+        } catch (...) {
+            std::cerr << "could not create ChainEvent:" << std::endl;
+            return 0;
+        }
+        return p;
     }
 
     bool events_to(fwlite::ChainEvent *ev, long n)
