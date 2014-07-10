@@ -7,6 +7,9 @@ all: clean lib
 clean:
 	cd CMSSW/src; eval `scramv1 runtime -sh`; scram b clean; scram b vclean;
 
+clean-cmssw:
+	rm -Rf CMSSW
+
 setup:
 	./setup.sh
 
