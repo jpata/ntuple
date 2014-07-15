@@ -25,5 +25,5 @@
 </library>
 
 <export>
-    <lib name="FWTools/FWTools" />
+    <lib name="ntuple/FWTools" />
 </export>
